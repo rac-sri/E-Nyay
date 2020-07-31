@@ -27,15 +27,17 @@ const renditionProfile = {
   ],
 };
 
-const createStream = () => {
-  axios({
+const createStream = async () => {
+  const data = await axios({
     method: "post",
     url: "https://livepeer.com/api/stream",
     data: renditionProfile,
     headers: {
-      Authorization: "Bearer <key>",
+      Authorization: "Bearer 52274c76-f3a0-423d-8b4c-4e942c54119e",
+      "Content-Type": "application/json",
     },
   });
+  return data;
 };
 
 export default createStream;
