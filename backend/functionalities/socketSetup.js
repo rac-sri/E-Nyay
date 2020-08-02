@@ -4,16 +4,22 @@ module.exports = (socket) => {
   console.log("connected");
   socket.on("joinRoom", (room) => {
     if (container[room]) {
-    } else container[room] = [];
+      console.log("Dsafsa" + room);
+    } else {
+      container[room] = [];
+      console.log(container[room]);
+    }
     socket.join(room);
   });
 
   socket.on("judge", (streamId) => {
+    console.log(streamId);
+    container[streamId.room].push(streamId.url);
     socket.to(streamId.room).emit("judgeStream", container[streamId.room]);
   });
 
   socket.on("concernedparty", (streamId) => {
-    container[stream.room].push(stream.url);
+    container[streamId.room].push(streamId.url);
     socket
       .to(streamId.room)
       .emit("concernedPartyStream", container[streamId.room]);
@@ -23,7 +29,7 @@ module.exports = (socket) => {
     // if (!container[streamId.room].l1)
     //   container[streamId.room].l1 = streamId.url;
     // else container[streamId.room].l2 = streamId.url;
-    container[stream.room].push(stream.url);
+    container[streamId.room].push(streamId.url);
     socket.to(streamId.room).emit("lawyersStream", container[streamId.room]);
   });
 

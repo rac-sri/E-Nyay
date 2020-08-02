@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import VideoPlayer from "./videoPlayer";
 import socket from "../functionalities/socket";
 
-export default function Panel({ roomId }) {
+export default function Panel(props) {
+  console.log(props.location.state);
+  const { selection, room, url } = props.location.state;
+
   const [urls, updateUrls] = useState([]);
 
   const action = (data) => {
@@ -10,8 +13,9 @@ export default function Panel({ roomId }) {
     updateUrls(data);
   };
   useEffect(() => {
-    socket.emit("fetchData", roomId);
-  }, []);
+    socket.emit("fetchData", room);
+  }, [room]);
+
   socket.on("dataStream", action);
   socket.on("judgeStream", action);
   socket.on("concernedPartyStream", action);

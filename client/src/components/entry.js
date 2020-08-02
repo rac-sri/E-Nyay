@@ -10,6 +10,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import socket from "../functionalities/socket";
+import { useNavigate } from "@reach/router";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -24,24 +25,29 @@ const useStyles = makeStyles((theme) => ({
 const options = ["judge", "lawyer", "party"];
 
 export default function Entry() {
+  const navigate = useNavigate();
+  const classes = useStyles();
+
   const [selection, updateSelection] = useState(options[0]);
   const [room, updateRoom] = useState("");
   const [visible, visibility] = useState(false);
   const [url, updateUrl] = useState("");
 
-  const classes = useStyles();
-
   const handleChange = (event) => {
     updateSelection(event.target.value);
   };
+
   const enterRoom = (e) => {
     console.log(room);
     socket.emit("joinRoom", room);
     visibility(true);
   };
   const onSelect = (e) => {
-    socket.emit(`${e.value}`, { position: e.value, room, url });
+    console.log(selection, room, url);
+    socket.emit(selection, { position: selection, room, url });
+    navigate("/call", { state: { selection, room, url } });
   };
+
   return (
     <Container maxWidth="sm">
       {!visible && (
@@ -81,11 +87,12 @@ export default function Entry() {
           </FormControl>
           <div>
             <label>Enter Your Stream Playback Url</label>
-            <input
-              type="url"
-              value={url}
-              onChange={(e) => updateUrl(e.value)}
-            ></input>
+            <TextField
+              id="outlined-basic"
+              label="Position"
+              variant="outlined"
+              onChange={(e) => updateUrl(e.target.value)}
+            />
             <Button variant="contained" color="primary" onClick={onSelect}>
               Enter
             </Button>
