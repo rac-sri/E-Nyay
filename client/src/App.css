@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+.lawyers {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.concernedParties {
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.judge {
+  position: relative;
+  top: -40rem;
+}
