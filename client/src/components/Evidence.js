@@ -59,7 +59,8 @@ export default function Evidence() {
   };
 
   const tfStyle = {
-    margin: "15px"
+    margin: "10px",
+    minWidth: "55%"
   }
 
   return (
@@ -81,59 +82,100 @@ export default function Evidence() {
       </AppBar>
       <div>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Paper elevation={3} style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}>
+          <Grid
+            container
+            direction="row"
+          >
             <Grid
-              container
-              direction="column"
-              justify="space-between"
-              alignItems="center"
+              item
+              xs={6}
+              style={{
+                backgroundImage: 'url(./images/hammer.jpg)',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor:
+                  theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+                backgroundSize: 'cover',
+                backgroundPositionY: '-100px'
+              }}
+            />
+            <Grid
+              item
+              xs={6}
+              style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}
             >
-              <h1>Add New Case</h1>
-              <TextField style={tfStyle} label="Judge ID" variant="outlined" />
-              <TextField style={tfStyle} label="Lawyer A ID" variant="outlined" />
-              <TextField style={tfStyle} label="Lawyer B ID" variant="outlined" />
-              <TextField style={tfStyle} label="Party A Name" variant="outlined" />
-              <TextField style={tfStyle} label="Party B Name" variant="outlined" />
-              <TextField style={tfStyle} label="Details" variant="outlined" />
+              <Grid
+                container
+                direction="column"
+                justify="space-between"
+                alignItems="center"
+              >
+                <h1>Add New Case</h1>
+                <TextField style={tfStyle} label="Judge ID" variant="outlined" />
+                <TextField style={tfStyle} label="Lawyer A ID" variant="outlined" />
+                <TextField style={tfStyle} label="Lawyer B ID" variant="outlined" />
+                <TextField style={tfStyle} label="Party A Name" variant="outlined" />
+                <TextField style={tfStyle} label="Party B Name" variant="outlined" />
+                <TextField style={tfStyle} label="Details" variant="outlined" />
 
-              <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
-                Add Case
-              </Button>
+                <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+                  Add Case
+                </Button>
+              </Grid>
             </Grid>
-
-          </Paper>
+          </Grid>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-        <Paper elevation={3} style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}>
-            <Grid
-              container
-              direction="column"
-              justify="space-between"
-              alignItems="center"
+          <Grid
+            container
+            direction="row"
+          >
+            <Grid 
+              item 
+              xs={6} 
+              style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}
             >
-              <h1>Register</h1>
-              <TextField style={tfStyle} label="Name" variant="outlined" />
-              <FormControl style={{minWidth: "30%", marginBottom: "20px"}}>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={"lawyer"}>Lawyer</MenuItem>
-                  <MenuItem value={"judge"}>Judge</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField style={tfStyle} label="Eth Address" value="0xREEEE" variant="outlined" disabled/>
-              
-              <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
-                Register
-              </Button>
+              <Grid
+                container
+                direction="column"
+                justify="space-between"
+                alignItems="center"
+              >
+                <h1>Register</h1>
+                <TextField style={tfStyle} label="Name" variant="outlined" />
+                <FormControl style={{minWidth: "30%", marginBottom: "20px", paddingRight: "180px"}}>
+                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                  >
+                    <MenuItem value={"lawyer"}>Lawyer</MenuItem>
+                    <MenuItem value={"judge"}>Judge</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField style={tfStyle} label="Eth Address" value="0xREEEE" variant="outlined" disabled/>
+                
+                <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+                  Register
+                </Button>
+              </Grid>
             </Grid>
-
-          </Paper>
+            <Grid
+              item
+              xs={6}
+              style={{
+                backgroundImage: 'url(./images/statue.jpg)',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor:
+                  theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+                backgroundSize: 'cover',
+                backgroundPositionY: '-180px',
+                minHeight: "620px"
+              }}
+            />
+          </Grid>
         </TabPanel>
       </div>
     </div>
