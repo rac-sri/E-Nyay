@@ -1,0 +1,12 @@
+[Unit]
+Description="Run 'Ursula', a NuCypher Staking Node."
+
+[Service]
+User=<YOUR USER>
+Type=simple
+Environment="NUCYPHER_WORKER_ETH_PASSWORD=<YOUR WORKER ADDRESS PASSWORD>"
+Environment="NUCYPHER_KEYRING_PASSWORD=<YOUR PASSWORD>"
+ExecStart=<VIRTUALENV PATH>/bin/nucypher ursula run
+
+[Install]
+WantedBy=multi-user.target
