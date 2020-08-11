@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -13,6 +12,10 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import ipfs from '../ipfs'
+import { StyledDropZone } from 'react-drop-zone';
+import "react-drop-zone/dist/styles.css";
+import fileReaderPullStream from 'pull-file-reader';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -52,7 +55,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Evidence() {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [ipfsHash, setIpfsHash] = useState("")
+  const [fileName, setFileName] = useState("")
+  const [fileType, setFileType] = useState("")
+  const [isUploading, setIsUploading] = useState(false)
+
+  const onDrop = async (file) => {
+    setIsUploading(true)
+    setFileName(file.name)
+    setFileType(file.name.substr(file.name.lastIndexOf(".")+1))
+
+    const stream = fileReaderPullStream(file);
+    const result = await ipfs.add(stream);
+    setIpfsHash(result[0].hash)
+    setIsUploading(false)
+
+    console.log("IPFS Hash:", result[0].hash)
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -125,7 +145,28 @@ export default function Evidence() {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+          <h1>Upload Evidence for Case</h1>
+          <TextField style={tfStyle} label="Enter Case ID" type="number" variant="outlined" />
+          <StyledDropZone onDrop={onDrop} style={{maxWidth: "50%", margin: "auto"}}>
+          <div>
+              {
+                fileName ? (
+                  <>
+                    <span>File: {fileName}</span>
+                    <br/>
+                    {isUploading ? (
+                      <b>⏳ Uploading to IPFS....</b>
+                    ) : (
+                      <b>✅ Uploaded</b>
+                    )}
+                  </>
+                ) : ("Click or drop your file here")
+              }
+            </div>
+          </StyledDropZone>
+          <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+            Submit
+          </Button>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Grid
