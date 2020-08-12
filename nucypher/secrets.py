@@ -1,10 +1,19 @@
+print("dfojiasd")
+
+
 from nucypher.blockchain.eth.interfaces import BlockchainInterfaceFactory
+
+print("h bjk")
+BlockchainInterfaceFactory.initialize_interface(provider_uri='https://rinkeby.infura.io/v3/3dc8b2e3489c4260904f45a4e74a56dc')
+
+
+from nucypher.characters.lawful import Ursula
+
 import random
 from umbral import config, keys, signing, pre
 from umbral.curve import SECP256K1
 
 
-BlockchainInterfaceFactory.initialize_interface(provider_uri='https://rinkeby.infura.io/v3/3dc8b2e3489c4260904f45a4e74a56dc')
 config.set_default_curve(SECP256K1)
 
 # **************************************************************************
@@ -20,7 +29,6 @@ Apoorv_private_key = keys.UmbralPrivateKey.gen_key()
 Apoorv_public_key = Apoorv_private_key.get_pubkey()
 
 # **************************************************************************
-
 
 plaintext = b'Hackathon!'
 ciphertext, capsule = pre.encrypt(rachit_public_key, plaintext)

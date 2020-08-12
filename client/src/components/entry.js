@@ -49,56 +49,65 @@ export default function Entry() {
   };
 
   return (
-    <Container maxWidth="sm">
-      {!visible && (
-        <div>
+    <div
+      className="wrapperBack"
+      style={{
+        backgroundImage: "url(./v.jpg)",
+        height: "100vh",
+        backgroundSize: "cover",
+      }}
+    >
+      <Container maxWidth="sm">
+        {!visible && (
           <div>
-            <TextField
-              id="outlined-basic"
-              label="Room Id"
-              variant="outlined"
-              onChange={(e) => updateRoom(e.target.value)}
-            />
-          </div>
-          <Button variant="contained" color="primary" onClick={enterRoom}>
-            Enter
-          </Button>
-        </div>
-      )}
-      {visible && (
-        <div>
-          <div>What are You?</div>
-          <FormControl className={classes.formControl}>
-            <Select
-              value={selection}
-              onChange={handleChange}
-              displayEmpty
-              className={classes.selectEmpty}
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value="" disabled>
-                Role
-              </MenuItem>
-              <MenuItem value={"judge"}>Judge</MenuItem>
-              <MenuItem value={"lawyer"}>Lawyer</MenuItem>
-              <MenuItem value={"party"}>Party</MenuItem>
-            </Select>
-            <FormHelperText>Select Your Role</FormHelperText>
-          </FormControl>
-          <div>
-            <label>Enter Your Stream Playback Url</label>
-            <TextField
-              id="outlined-basic"
-              label="Position"
-              variant="outlined"
-              onChange={(e) => updateUrl(e.target.value)}
-            />
-            <Button variant="contained" color="primary" onClick={onSelect}>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Room Id"
+                variant="outlined"
+                onChange={(e) => updateRoom(e.target.value)}
+              />
+            </div>
+            <Button variant="contained" color="primary" onClick={enterRoom}>
               Enter
             </Button>
           </div>
-        </div>
-      )}
-    </Container>
+        )}
+        {visible && (
+          <div>
+            <div>What are You?</div>
+            <FormControl className={classes.formControl}>
+              <Select
+                value={selection}
+                onChange={handleChange}
+                displayEmpty
+                className={classes.selectEmpty}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value="" disabled>
+                  Role
+                </MenuItem>
+                <MenuItem value={"judge"}>Judge</MenuItem>
+                <MenuItem value={"lawyer"}>Lawyer</MenuItem>
+                <MenuItem value={"party"}>Party</MenuItem>
+              </Select>
+              <FormHelperText>Select Your Role</FormHelperText>
+            </FormControl>
+            <div>
+              <label>Enter Your Stream Playback Url</label>
+              <TextField
+                id="outlined-basic"
+                label="Url"
+                variant="outlined"
+                onChange={(e) => updateUrl(e.target.value)}
+              />
+              <Button variant="contained" color="primary" onClick={onSelect}>
+                Enter
+              </Button>
+            </div>
+          </div>
+        )}
+      </Container>
+    </div>
   );
 }
