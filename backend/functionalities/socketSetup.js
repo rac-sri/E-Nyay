@@ -10,6 +10,7 @@ module.exports = (socket) => {
       console.log(container[room]);
     }
     socket.join(room);
+    socket.emit("insideRoom");
   });
 
   socket.on("judge", (streamId) => {

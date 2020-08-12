@@ -1,21 +1,21 @@
-import React, {useState} from 'react'
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import React, { useState } from "react";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import ipfs from '../ipfs'
-import { StyledDropZone } from 'react-drop-zone';
+import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import ipfs from "../ipfs";
+import { StyledDropZone } from "react-drop-zone";
 import "react-drop-zone/dist/styles.css";
-import fileReaderPullStream from 'pull-file-reader';
+import fileReaderPullStream from "pull-file-reader";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -35,12 +35,12 @@ const TabPanel = (props) => {
       )}
     </div>
   );
-}
+};
 
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: 500,
-    minWidth: "100%"
+    minWidth: "100%",
   },
 }));
 
@@ -56,23 +56,23 @@ export default function Evidence() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [ipfsHash, setIpfsHash] = useState("")
-  const [fileName, setFileName] = useState("")
-  const [fileType, setFileType] = useState("")
-  const [isUploading, setIsUploading] = useState(false)
+  const [ipfsHash, setIpfsHash] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   const onDrop = async (file) => {
-    setIsUploading(true)
-    setFileName(file.name)
-    setFileType(file.name.substr(file.name.lastIndexOf(".")+1))
+    setIsUploading(true);
+    setFileName(file.name);
+    setFileType(file.name.substr(file.name.lastIndexOf(".") + 1));
 
     const stream = fileReaderPullStream(file);
     const result = await ipfs.add(stream);
-    setIpfsHash(result[0].hash)
-    setIsUploading(false)
+    setIpfsHash(result[0].hash);
+    setIsUploading(false);
 
-    console.log("IPFS Hash:", result[0].hash)
-  }
+    console.log("IPFS Hash:", result[0].hash);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,8 +80,8 @@ export default function Evidence() {
 
   const tfStyle = {
     margin: "10px",
-    minWidth: "55%"
-  }
+    minWidth: "55%",
+  };
 
   return (
     <div className={classes.root}>
@@ -102,26 +102,25 @@ export default function Evidence() {
       </AppBar>
       <div>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Grid
-            container
-            direction="row"
-          >
+          <Grid container direction="row">
             <Grid
               item
               xs={6}
               style={{
-                backgroundImage: 'url(./images/hammer.jpg)',
-                backgroundRepeat: 'no-repeat',
+                backgroundImage: "url(./images/hammer.jpg)",
+                backgroundRepeat: "no-repeat",
                 backgroundColor:
-                  theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-                backgroundSize: 'cover',
-                backgroundPositionY: '-100px'
+                  theme.palette.type === "light"
+                    ? theme.palette.grey[50]
+                    : theme.palette.grey[900],
+                backgroundSize: "cover",
+                backgroundPositionY: "-100px",
               }}
             />
             <Grid
               item
               xs={6}
-              style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}
+              style={{ maxWidth: "50%", margin: "auto", paddingBottom: "20px" }}
             >
               <Grid
                 container
@@ -130,14 +129,38 @@ export default function Evidence() {
                 alignItems="center"
               >
                 <h1>Add New Case</h1>
-                <TextField style={tfStyle} label="Judge ID" variant="outlined" />
-                <TextField style={tfStyle} label="Lawyer A ID" variant="outlined" />
-                <TextField style={tfStyle} label="Lawyer B ID" variant="outlined" />
-                <TextField style={tfStyle} label="Party A Name" variant="outlined" />
-                <TextField style={tfStyle} label="Party B Name" variant="outlined" />
+                <TextField
+                  style={tfStyle}
+                  label="Judge ID"
+                  variant="outlined"
+                />
+                <TextField
+                  style={tfStyle}
+                  label="Lawyer A ID"
+                  variant="outlined"
+                />
+                <TextField
+                  style={tfStyle}
+                  label="Lawyer B ID"
+                  variant="outlined"
+                />
+                <TextField
+                  style={tfStyle}
+                  label="Party A Name"
+                  variant="outlined"
+                />
+                <TextField
+                  style={tfStyle}
+                  label="Party B Name"
+                  variant="outlined"
+                />
                 <TextField style={tfStyle} label="Details" variant="outlined" />
 
-                <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginTop: "15px" }}
+                >
                   Add Case
                 </Button>
               </Grid>
@@ -146,37 +169,46 @@ export default function Evidence() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <h1>Upload Evidence for Case</h1>
-          <TextField style={tfStyle} label="Enter Case ID" type="number" variant="outlined" />
-          <StyledDropZone onDrop={onDrop} style={{maxWidth: "50%", margin: "auto"}}>
-          <div>
-              {
-                fileName ? (
-                  <>
-                    <span>File: {fileName}</span>
-                    <br/>
-                    {isUploading ? (
-                      <b>⏳ Uploading to IPFS....</b>
-                    ) : (
-                      <b>✅ Uploaded</b>
-                    )}
-                  </>
-                ) : ("Click or drop your file here")
-              }
+          <TextField
+            style={tfStyle}
+            label="Enter Case ID"
+            type="number"
+            variant="outlined"
+          />
+          <StyledDropZone
+            onDrop={onDrop}
+            style={{ maxWidth: "50%", margin: "auto" }}
+          >
+            <div>
+              {fileName ? (
+                <>
+                  <span>File: {fileName}</span>
+                  <br />
+                  {isUploading ? (
+                    <b>⏳ Uploading to IPFS....</b>
+                  ) : (
+                    <b>✅ Uploaded</b>
+                  )}
+                </>
+              ) : (
+                "Click or drop your file here"
+              )}
             </div>
           </StyledDropZone>
-          <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "15px" }}
+          >
             Submit
           </Button>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Grid
-            container
-            direction="row"
-          >
-            <Grid 
-              item 
-              xs={6} 
-              style={{maxWidth: "50%", margin: "auto", paddingBottom: "20px"}}
+          <Grid container direction="row">
+            <Grid
+              item
+              xs={6}
+              style={{ maxWidth: "50%", margin: "auto", paddingBottom: "20px" }}
             >
               <Grid
                 container
@@ -186,7 +218,13 @@ export default function Evidence() {
               >
                 <h1>Register</h1>
                 <TextField style={tfStyle} label="Name" variant="outlined" />
-                <FormControl style={{minWidth: "30%", marginBottom: "20px", paddingRight: "180px"}}>
+                <FormControl
+                  style={{
+                    minWidth: "30%",
+                    marginBottom: "20px",
+                    paddingRight: "180px",
+                  }}
+                >
                   <InputLabel id="demo-simple-select-label">Role</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
@@ -196,9 +234,19 @@ export default function Evidence() {
                     <MenuItem value={"judge"}>Judge</MenuItem>
                   </Select>
                 </FormControl>
-                <TextField style={tfStyle} label="Eth Address" value="0xREEEE" variant="outlined" disabled/>
-                
-                <Button variant="contained" color="primary" style={{marginTop: "15px"}}>
+                <TextField
+                  style={tfStyle}
+                  label="Eth Address"
+                  value="0xREEEE"
+                  variant="outlined"
+                  disabled
+                />
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginTop: "15px" }}
+                >
                   Register
                 </Button>
               </Grid>
@@ -207,13 +255,15 @@ export default function Evidence() {
               item
               xs={6}
               style={{
-                backgroundImage: 'url(./images/statue.jpg)',
-                backgroundRepeat: 'no-repeat',
+                backgroundImage: "url(./images/statue.jpg)",
+                backgroundRepeat: "no-repeat",
                 backgroundColor:
-                  theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-                backgroundSize: 'cover',
-                backgroundPositionY: '-180px',
-                minHeight: "620px"
+                  theme.palette.type === "light"
+                    ? theme.palette.grey[50]
+                    : theme.palette.grey[900],
+                backgroundSize: "cover",
+                backgroundPositionY: "-180px",
+                minHeight: "620px",
               }}
             />
           </Grid>
