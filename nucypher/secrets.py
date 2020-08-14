@@ -1,13 +1,8 @@
-print("dfojiasd")
-
-
 from nucypher.blockchain.eth.interfaces import BlockchainInterfaceFactory
-
-print("h bjk")
 BlockchainInterfaceFactory.initialize_interface(provider_uri='https://rinkeby.infura.io/v3/3dc8b2e3489c4260904f45a4e74a56dc')
 
-
-from nucypher.characters.lawful import Ursula
+ 
+from nucypher.characters.lawful import Bob, Ursula, Enrico, Alice
 
 import random
 from umbral import config, keys, signing, pre
@@ -15,7 +10,7 @@ from umbral.curve import SECP256K1
 
 
 config.set_default_curve(SECP256K1)
-
+print('aslkjdsals')
 # **************************************************************************
 
 rachit_private_key = keys.UmbralPrivateKey.gen_key()
