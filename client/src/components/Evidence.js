@@ -13,7 +13,7 @@ import CaseData from './subTabs/CaseData'
 import Entry from "./entry";
 
 const courtABI = require('../abis/Court.json')
-const courtContractAddress = "0x5012248C147BCce91b46914bd7f4753dD7615ebC"  //rinkeby
+const courtContractAddress = "0xfFC9a7BeD66F753AE80450763Cc2A59D04E11f05"  //ropsten
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -84,7 +84,8 @@ export default function Evidence() {
     contract.methods.newCase(
       judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details
     ).send({
-      from: account
+      from: account,
+      value: web3.utils.toWei('0.005', 'ether')
     }).then(r => {
       console.log(r)
 
@@ -161,6 +162,17 @@ export default function Evidence() {
     console.log(caseData)
   }
 
+  const closeCase = (caseid, setLoading2, setResText) => {
+    setLoading2(true)
+    contract.methods.closeCase(caseid).send({
+      from: account
+    }).then(r => {
+      console.log(r)
+      setResText("✅ Case Closed. Fees paid! Txn Hash: " + r.transactionHash)
+      setLoading2(false)
+    })
+  }
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -231,6 +243,7 @@ export default function Evidence() {
             tfstyle={tfStyle}
             submit={getCaseData}
             classes={classes}
+            closeCase={closeCase}
           />
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
