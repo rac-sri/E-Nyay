@@ -21,8 +21,11 @@ export default function Panel(props) {
   socket.on("concernedPartyStream", action);
   socket.on("lawyersStream", action);
 
+  console.log(urls);
+
   return (
-    <div>
+    <div className="panelFlex">
+      {/* <VideoPlayer playbackUrl="https://fra-cdn.livepeer.com/hls/gdiyr2qwl6a3607u/index.m3u8" /> */}
       {urls.map((value, index) => (
         <VideoPlayer playbackUrl={value} key={index} />
       ))}
