@@ -29,8 +29,11 @@ The project aims to achieve the following:
 - Http Live Streaming
 
 > OUR  SYSTEM UTLIZES THE LIVEPEER PROTOCOL FOR VIDEO CONFERENCING.
+
 > EVIDENCE IS STORED BY UTILIZING IPFS AND FILECOIN, HENCE SECURELY ENCYPTED AND SAFE FROM MANIPULATION.
+
 > Court fees from suspect & victim put in contract & deposited to Aave. Whoever wins gets the interest accumulated. Court gets paid only when case ended .
+
 > NuCypher → Encrypt sensitive info/evidences accessible to specific parties only (lawyers, judges).
 
 ## Contributors
