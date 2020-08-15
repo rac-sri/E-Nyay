@@ -52,3 +52,10 @@
   position: relative;
   top: -40rem;
 }
+.panelFlex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-image: url("/v.jpg");
+  height: 100vh;
+}

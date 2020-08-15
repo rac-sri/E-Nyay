@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const options = ["judge", "lawyer", "party"];
+const options = ["judge", "lawyers", "concernedparty"];
 
 export default function Entry() {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ export default function Entry() {
     <div
       className="wrapperBack"
       style={{
-        margin: "auto"
+        margin: "auto",
       }}
     >
       <div>
@@ -65,7 +65,7 @@ export default function Entry() {
                 label="Room Id"
                 variant="outlined"
                 onChange={(e) => updateRoom(e.target.value)}
-                style={{marginBottom: "20px"}}
+                style={{ marginBottom: "20px" }}
               />
             </div>
             <Button variant="contained" color="primary" onClick={enterRoom}>
@@ -87,13 +87,13 @@ export default function Entry() {
                 <MenuItem value="" disabled>
                   Role
                 </MenuItem>
-                <MenuItem value={"judge"}>Judge</MenuItem>
-                <MenuItem value={"lawyer"}>Lawyer</MenuItem>
-                <MenuItem value={"party"}>Party</MenuItem>
+                <MenuItem value={options[0]}>Judge</MenuItem>
+                <MenuItem value={options[1]}>Lawyer</MenuItem>
+                <MenuItem value={options[2]}>Party</MenuItem>
               </Select>
               <FormHelperText>Select Your Role</FormHelperText>
             </FormControl>
-            <div style={{marginTop: "35px"}}>
+            <div style={{ marginTop: "35px" }}>
               <label>Enter Your Stream Playback Url:</label>
               <br />
               <TextField
@@ -101,7 +101,7 @@ export default function Entry() {
                 label="Url"
                 variant="outlined"
                 onChange={(e) => updateUrl(e.target.value)}
-                style={{marginBottom: "20px"}}
+                style={{ marginBottom: "20px" }}
               />
               <br />
               <Button variant="contained" color="primary" onClick={onSelect}>
