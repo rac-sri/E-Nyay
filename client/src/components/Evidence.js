@@ -10,6 +10,7 @@ import AddNewCase from './subTabs/AddNewCase'
 import Register from './subTabs/Register'
 import Upload from './subTabs/Upload'
 import CaseData from './subTabs/CaseData'
+import Entry from "./entry";
 
 const courtABI = require('../abis/Court.json')
 const courtContractAddress = "0x5012248C147BCce91b46914bd7f4753dD7615ebC"  //rinkeby
@@ -184,6 +185,7 @@ export default function Evidence() {
           <Tab label="Upload Evidence" {...a11yProps(1)} />
           <Tab label="Register Lawyer/Judge" {...a11yProps(2)} />
           <Tab label="View Case Data" {...a11yProps(3)} />
+          <Tab label="Video Chat" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <div>
@@ -196,6 +198,13 @@ export default function Evidence() {
           />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
+          <img src="./dot-grid-triangle.svg" alt="dots"
+            style={{
+              left: 0,
+              top: "104px",
+              position: "fixed"
+            }}
+          />
           <Upload
             tfstyle={tfStyle}
             submit={uploadEvidence}
@@ -211,11 +220,28 @@ export default function Evidence() {
           />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
+          <img src="./dot-grid-triangle.svg" alt="dots"
+            style={{
+              left: 0,
+              top: "104px",
+              position: "fixed"
+            }}
+          />
           <CaseData
             tfstyle={tfStyle}
             submit={getCaseData}
             classes={classes}
           />
+        </TabPanel>
+        <TabPanel value={value} index={4} dir={theme.direction}>
+          <img src="./dot-grid-triangle.svg" alt="dots"
+            style={{
+              left: 0,
+              top: "104px",
+              position: "fixed"
+            }}
+          />
+          <Entry />
         </TabPanel>
       </div>
     </div>

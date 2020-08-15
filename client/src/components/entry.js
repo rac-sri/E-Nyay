@@ -52,20 +52,20 @@ export default function Entry() {
     <div
       className="wrapperBack"
       style={{
-        backgroundImage: "url(./v.jpg)",
-        height: "100vh",
-        backgroundSize: "cover",
+        margin: "auto"
       }}
     >
-      <Container maxWidth="sm">
+      <div>
         {!visible && (
           <div>
+            <h1>Join Video Chat:</h1>
             <div>
               <TextField
                 id="outlined-basic"
                 label="Room Id"
                 variant="outlined"
                 onChange={(e) => updateRoom(e.target.value)}
+                style={{marginBottom: "20px"}}
               />
             </div>
             <Button variant="contained" color="primary" onClick={enterRoom}>
@@ -75,7 +75,7 @@ export default function Entry() {
         )}
         {visible && (
           <div>
-            <div>What are You?</div>
+            <h1>What are You?</h1>
             <FormControl className={classes.formControl}>
               <Select
                 value={selection}
@@ -93,21 +93,24 @@ export default function Entry() {
               </Select>
               <FormHelperText>Select Your Role</FormHelperText>
             </FormControl>
-            <div>
-              <label>Enter Your Stream Playback Url</label>
+            <div style={{marginTop: "35px"}}>
+              <label>Enter Your Stream Playback Url:</label>
+              <br />
               <TextField
                 id="outlined-basic"
                 label="Url"
                 variant="outlined"
                 onChange={(e) => updateUrl(e.target.value)}
+                style={{marginBottom: "20px"}}
               />
+              <br />
               <Button variant="contained" color="primary" onClick={onSelect}>
                 Enter
               </Button>
             </div>
           </div>
         )}
-      </Container>
+      </div>
     </div>
   );
 }

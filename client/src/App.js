@@ -11,9 +11,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Entry path="/" default />
+        {/* <Entry path="/" default /> */}
+        <Evidence path="/" default />
         <Panel path="/call" />
-        <Evidence path="/evidence" />
       </Router>
     </div>
   );
