@@ -9,6 +9,7 @@ import web3 from '../functionalities/web3'
 import AddNewCase from './subTabs/AddNewCase'
 import Register from './subTabs/Register'
 import Upload from './subTabs/Upload'
+import CaseData from './subTabs/CaseData'
 
 const courtABI = require('../abis/Court.json')
 const courtContractAddress = "0x5012248C147BCce91b46914bd7f4753dD7615ebC"  //rinkeby
@@ -139,6 +140,26 @@ export default function Evidence() {
     })
   }
 
+  const getCaseData = async (caseId, setLoading, setCaseInfo) => {
+    setLoading(true)
+    
+    let caseData = await contract.methods.cases(caseId).call();
+    let evidenceCount = await contract.methods.getEvidenceCount(caseId).call();
+
+    let evidenceData=[]
+    
+    for(var i=0; i<parseInt(evidenceCount); i++) {
+      let evi = await contract.methods.getEvidence(caseId, i).call();
+      evidenceData.push(evi);
+    }
+
+    caseData.evidenceData = evidenceData;
+
+    setCaseInfo(caseData)
+    setLoading(false)
+    console.log(caseData)
+  }
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -186,6 +207,13 @@ export default function Evidence() {
             theme={theme}
             tfStyle={tfStyle}
             submit={registerUser}
+            classes={classes}
+          />
+        </TabPanel>
+        <TabPanel value={value} index={3} dir={theme.direction}>
+          <CaseData
+            tfstyle={tfStyle}
+            submit={getCaseData}
             classes={classes}
           />
         </TabPanel>

@@ -82,7 +82,7 @@ function AddNewCase({theme, tfStyle, submit, classes}) {
           <Button
             variant="contained"
             color="primary"
-            style={{ marginTop: "15px" }}
+            style={{ marginTop: "15px", minHeight: "36px" }}
             onClick={() => submit(judgeID, lawyerAID, lawyerBID, partyA, partyB, details, setLoading, setResText)}
           >
           {
