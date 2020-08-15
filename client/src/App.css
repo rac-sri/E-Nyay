@@ -54,7 +54,7 @@
 }
 .panelFlex {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   background-image: url("/v.jpg");
   height: 100vh;
