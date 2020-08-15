@@ -1,4 +1,5 @@
-pragma solidity ^0.5.0;
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.0;
 
 contract Court {
     address public owner;
@@ -59,7 +60,7 @@ contract Court {
         emit judgeRegistered(judges.length-1);
     }
     
-    function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public onlyOwner {
+    function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public  {
         string[] memory empty;
         Case memory tcase = Case(judges[_judgeId].addr, lawyers[_lawyer1Id].addr, lawyers[_lawyer2Id].addr, empty, empty, _party_1_name, _party_2_name, _details);
         cases.push(tcase);
@@ -68,7 +69,7 @@ contract Court {
     }
     
     // Evidence
-    function uploadEvidence(uint _caseId, string memory _fileHash, string memory _fileType) onlyOwner public {
+    function uploadEvidence(uint _caseId, string memory _fileHash, string memory _fileType) public {
         // to compare String without importing StringUtils Contract:
         require(keccak256(bytes(_fileHash)) != keccak256(bytes("")) && keccak256(bytes(_fileType)) != keccak256(bytes("")));    //here checking string Not Null
         cases[_caseId].evidenceFileHash.push(_fileHash);
@@ -83,7 +84,7 @@ contract Court {
     }
     
     //EncryptedKeys
-    function addEncryptedKey(bool _isLawyer, uint _ljId, uint _caseId, string memory _key) public onlyOwner {
+    function addEncryptedKey(bool _isLawyer, uint _ljId, uint _caseId, string memory _key) public {
         if(_isLawyer) {
             lawyers[_ljId].encryptedKeys[_caseId] = _key;
         } else {
@@ -100,5 +101,15 @@ contract Court {
     
     function getCaseAddresses(uint _caseId) public view returns(address judge, address lawyer1, address lawyer2) {
         return(cases[_caseId].judge, cases[_caseId].lawyer1, cases[_caseId].lawyer2);
+    }
+    
+    function getJudgesCount() external view returns(uint) {
+        return judges.length;
+    }
+    function getLawyersCount() external view returns(uint) {
+        return lawyers.length;
+    }
+    function getCasesCount() external view returns(uint) {
+        return cases.length;
     }
 }

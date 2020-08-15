@@ -1,21 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import ipfs from "../ipfs";
-import { StyledDropZone } from "react-drop-zone";
-import "react-drop-zone/dist/styles.css";
-import fileReaderPullStream from "pull-file-reader";
+import web3 from '../functionalities/web3'
+import AddNewCase from './subTabs/AddNewCase'
+import Register from './subTabs/Register'
+import Upload from './subTabs/Upload'
+
+const courtABI = require('../abis/Court.json')
+const courtContractAddress = "0x5012248C147BCce91b46914bd7f4753dD7615ebC"  //rinkeby
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -50,29 +46,98 @@ const useStyles = makeStyles((theme) => ({
     width: 500,
     minWidth: "100%",
   },
+  buttonProgress: {
+    color: "white",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 }));
 
 export default function Evidence() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [ipfsHash, setIpfsHash] = useState("");
-  const [fileName, setFileName] = useState("");
-  const [fileType, setFileType] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
+  const [contract, setContract] = useState(null)
+  const [account, setAccount] = useState()
 
-  const onDrop = async (file) => {
-    setIsUploading(true);
-    setFileName(file.name);
-    setFileType(file.name.substr(file.name.lastIndexOf(".") + 1));
+  // Setup Contracts on App Load
+  useEffect(() => {
+    async function contractsSetup() {
+      setContract(new web3.eth.Contract(courtABI, courtContractAddress))
+    }
+    contractsSetup()
 
-    const stream = fileReaderPullStream(file);
-    const result = await ipfs.add(stream);
-    setIpfsHash(result[0].hash);
-    setIsUploading(false);
+    web3.eth.getAccounts((error, accounts) => {
+      console.log(accounts);
+      setAccount(accounts[0])
+    });
 
-    console.log("IPFS Hash:", result[0].hash);
-  };
+  }, [])
+
+  const addCase = (judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details, setLoading, setResText) => {
+    setLoading(true)
+    contract.methods.newCase(
+      judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details
+    ).send({
+      from: account
+    }).then(r => {
+      console.log(r)
+
+      contract.methods.getCasesCount().call().then(r => {
+        setLoading(false)
+        setResText(`✅ CaseID is: ${parseInt(r)-1}`)
+      })
+    })
+  }
+
+  const registerUser = (role, name, addr, setLoading, setResText) => {
+    setLoading(true)
+
+    if(role === "judge") {
+      contract.methods.registerJudge(
+        name, addr, ""
+      ).send({
+        from: account
+      }).then(r => {
+        console.log(r)
+
+        contract.methods.getJudgesCount().call().then(r => {
+          setLoading(false)
+          setResText(`✅ JudgeID is: ${parseInt(r)-1}`)
+        })
+      })
+    } else {
+      contract.methods.registerLawyer(
+        name, addr, ""
+      ).send({
+        from: account
+      }).then(r => {
+        console.log(r)
+        
+        contract.methods.getLawyersCount().call().then(r => {
+          setLoading(false)
+          setResText(`✅ LawyerID is: ${parseInt(r)-1}`)
+        })
+
+      })
+    }
+  }
+
+  const uploadEvidence = (caseID, fileHash, fileType, setLoading, setResText) => {
+    setLoading(true)
+    contract.methods.uploadEvidence(
+      caseID, fileHash, fileType
+    ).send({
+      from: account
+    }).then(r => {
+      console.log(r)
+      setResText("✅ Evidence added to the Case")
+      setLoading(false)
+    })
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -102,171 +167,27 @@ export default function Evidence() {
       </AppBar>
       <div>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Grid container direction="row">
-            <Grid
-              item
-              xs={6}
-              style={{
-                backgroundImage: "url(./images/hammer.jpg)",
-                backgroundRepeat: "no-repeat",
-                backgroundColor:
-                  theme.palette.type === "light"
-                    ? theme.palette.grey[50]
-                    : theme.palette.grey[900],
-                backgroundSize: "cover",
-                backgroundPositionY: "-100px",
-              }}
-            />
-            <Grid
-              item
-              xs={6}
-              style={{ maxWidth: "50%", margin: "auto", paddingBottom: "20px" }}
-            >
-              <Grid
-                container
-                direction="column"
-                justify="space-between"
-                alignItems="center"
-              >
-                <h1>Add New Case</h1>
-                <TextField
-                  style={tfStyle}
-                  label="Judge ID"
-                  variant="outlined"
-                />
-                <TextField
-                  style={tfStyle}
-                  label="Lawyer A ID"
-                  variant="outlined"
-                />
-                <TextField
-                  style={tfStyle}
-                  label="Lawyer B ID"
-                  variant="outlined"
-                />
-                <TextField
-                  style={tfStyle}
-                  label="Party A Name"
-                  variant="outlined"
-                />
-                <TextField
-                  style={tfStyle}
-                  label="Party B Name"
-                  variant="outlined"
-                />
-                <TextField style={tfStyle} label="Details" variant="outlined" />
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: "15px" }}
-                >
-                  Add Case
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
+          <AddNewCase 
+            theme={theme}
+            tfStyle={tfStyle}
+            submit={addCase}
+            classes={classes}
+          />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <h1>Upload Evidence for Case</h1>
-          <TextField
-            style={tfStyle}
-            label="Enter Case ID"
-            type="number"
-            variant="outlined"
+          <Upload
+            tfstyle={tfStyle}
+            submit={uploadEvidence}
+            classes={classes}
           />
-          <StyledDropZone
-            onDrop={onDrop}
-            style={{ maxWidth: "50%", margin: "auto" }}
-          >
-            <div>
-              {fileName ? (
-                <>
-                  <span>File: {fileName}</span>
-                  <br />
-                  {isUploading ? (
-                    <b>⏳ Uploading to IPFS....</b>
-                  ) : (
-                    <b>✅ Uploaded</b>
-                  )}
-                </>
-              ) : (
-                "Click or drop your file here"
-              )}
-            </div>
-          </StyledDropZone>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ marginTop: "15px" }}
-          >
-            Submit
-          </Button>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Grid container direction="row">
-            <Grid
-              item
-              xs={6}
-              style={{ maxWidth: "50%", margin: "auto", paddingBottom: "20px" }}
-            >
-              <Grid
-                container
-                direction="column"
-                justify="space-between"
-                alignItems="center"
-              >
-                <h1>Register</h1>
-                <TextField style={tfStyle} label="Name" variant="outlined" />
-                <FormControl
-                  style={{
-                    minWidth: "30%",
-                    marginBottom: "20px",
-                    paddingRight: "180px",
-                  }}
-                >
-                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                  >
-                    <MenuItem value={"lawyer"}>Lawyer</MenuItem>
-                    <MenuItem value={"judge"}>Judge</MenuItem>
-                  </Select>
-                </FormControl>
-                <TextField
-                  style={tfStyle}
-                  label="Eth Address"
-                  value="0xREEEE"
-                  variant="outlined"
-                  disabled
-                />
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: "15px" }}
-                >
-                  Register
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{
-                backgroundImage: "url(./images/statue.jpg)",
-                backgroundRepeat: "no-repeat",
-                backgroundColor:
-                  theme.palette.type === "light"
-                    ? theme.palette.grey[50]
-                    : theme.palette.grey[900],
-                backgroundSize: "cover",
-                backgroundPositionY: "-180px",
-                minHeight: "620px",
-              }}
-            />
-          </Grid>
+          <Register
+            theme={theme}
+            tfStyle={tfStyle}
+            submit={registerUser}
+            classes={classes}
+          />
         </TabPanel>
       </div>
     </div>

@@ -1,0 +1,474 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isLawyer",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ljId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_key",
+				"type": "string"
+			}
+		],
+		"name": "addEncryptedKey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			}
+		],
+		"name": "caseCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_judgeId",
+				"type": "uint256"
+			}
+		],
+		"name": "judgeRegistered",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_lawyerId",
+				"type": "uint256"
+			}
+		],
+		"name": "lawyerRegistered",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_judgeId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_lawyer1Id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_lawyer2Id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_party_1_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_party_2_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_details",
+				"type": "string"
+			}
+		],
+		"name": "newCase",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_pubkey",
+				"type": "string"
+			}
+		],
+		"name": "registerJudge",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_pubkey",
+				"type": "string"
+			}
+		],
+		"name": "registerLawyer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_fileHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_fileType",
+				"type": "string"
+			}
+		],
+		"name": "uploadEvidence",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "cases",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "judge",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "lawyer1",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "lawyer2",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "party_1_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "party_2_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "details",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			}
+		],
+		"name": "getCaseAddresses",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "judge",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "lawyer1",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "lawyer2",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getCasesCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isLawyer",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ljId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			}
+		],
+		"name": "getEncryptedKey",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_evidenceNo",
+				"type": "uint256"
+			}
+		],
+		"name": "getEvidence",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "FileHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "FileType",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_caseId",
+				"type": "uint256"
+			}
+		],
+		"name": "getEvidenceCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getJudgesCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getLawyersCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "judges",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "pubkey",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "lawyers",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "pubkey",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
