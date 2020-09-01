@@ -13,7 +13,7 @@ import CaseData from "./subTabs/CaseData";
 import Entry from "./entry";
 
 const courtABI = require("../abis/Court.json");
-const courtContractAddress = "0xaf26ae6ab439e984dc0e9a5006b626b8a9c61f72"; //rinkeby
+const courtContractAddress = "0x700739A67064B3BA1Fb0e8E944aA8A9E0B848ecb"; //rinkeby
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
