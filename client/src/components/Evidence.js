@@ -5,15 +5,15 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
-import web3 from '../functionalities/web3'
-import AddNewCase from './subTabs/AddNewCase'
-import Register from './subTabs/Register'
-import Upload from './subTabs/Upload'
-import CaseData from './subTabs/CaseData'
+import web3 from "../functionalities/web3";
+import AddNewCase from "./subTabs/AddNewCase";
+import Register from "./subTabs/Register";
+import Upload from "./subTabs/Upload";
+import CaseData from "./subTabs/CaseData";
 import Entry from "./entry";
 
-const courtABI = require('../abis/Court.json')
-const courtContractAddress = "0xfFC9a7BeD66F753AE80450763Cc2A59D04E11f05"  //ropsten
+const courtABI = require("../abis/Court.json");
+const courtContractAddress = "0x700739A67064B3BA1Fb0e8E944aA8A9E0B848ecb"; //rinkeby
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonProgress: {
     color: "white",
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     marginTop: -12,
     marginLeft: -12,
   },
@@ -62,116 +62,146 @@ export default function Evidence() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [contract, setContract] = useState(null)
-  const [account, setAccount] = useState()
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState();
 
   // Setup Contracts on App Load
   useEffect(() => {
     async function contractsSetup() {
-      setContract(new web3.eth.Contract(courtABI, courtContractAddress))
+      setContract(new web3.eth.Contract(courtABI, courtContractAddress));
     }
-    contractsSetup()
+    contractsSetup();
 
     web3.eth.getAccounts((error, accounts) => {
       console.log(accounts);
-      setAccount(accounts[0])
+      setAccount(accounts[0]);
     });
+  }, []);
 
-  }, [])
-
-  const addCase = (judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details, setLoading, setResText) => {
-    setLoading(true)
-    contract.methods.newCase(
-      judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details
-    ).send({
-      from: account,
-      value: web3.utils.toWei('0.005', 'ether')
-    }).then(r => {
-      console.log(r)
-
-      contract.methods.getCasesCount().call().then(r => {
-        setLoading(false)
-        setResText(`✅ CaseID is: ${parseInt(r)-1}`)
+  const addCase = (
+    judgeID,
+    lawyerAID,
+    lawyerBID,
+    partyAName,
+    partyBName,
+    details,
+    setLoading,
+    setResText
+  ) => {
+    setLoading(true);
+    console.log(contract.methods);
+    console.log(judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details);
+    contract.methods
+      .newCase(judgeID, lawyerAID, lawyerBID, partyAName, partyBName, details)
+      .send({
+        from: account,
       })
-    })
-  }
+      .then((r) => {
+        console.log(r);
+
+        contract.methods
+          .getCasesCount()
+          .call()
+          .then((r) => {
+            setLoading(false);
+            setResText(`✅ CaseID is: ${parseInt(r) - 1}`);
+          });
+      });
+  };
 
   const registerUser = (role, name, addr, setLoading, setResText) => {
-    setLoading(true)
+    setLoading(true);
 
-    if(role === "judge") {
-      contract.methods.registerJudge(
-        name, addr, ""
-      ).send({
-        from: account
-      }).then(r => {
-        console.log(r)
-
-        contract.methods.getJudgesCount().call().then(r => {
-          setLoading(false)
-          setResText(`✅ JudgeID is: ${parseInt(r)-1}`)
+    if (role === "judge") {
+      contract.methods
+        .registerJudge(name, addr, "")
+        .send({
+          from: account,
         })
-      })
+        .then((r) => {
+          console.log(r);
+
+          contract.methods
+            .getJudgesCount()
+            .call()
+            .then((r) => {
+              setLoading(false);
+              setResText(`✅ JudgeID is: ${parseInt(r) - 1}`);
+            });
+        });
     } else {
-      contract.methods.registerLawyer(
-        name, addr, ""
-      ).send({
-        from: account
-      }).then(r => {
-        console.log(r)
-        
-        contract.methods.getLawyersCount().call().then(r => {
-          setLoading(false)
-          setResText(`✅ LawyerID is: ${parseInt(r)-1}`)
+      contract.methods
+        .registerLawyer(name, addr, "")
+        .send({
+          from: account,
         })
+        .then((r) => {
+          console.log(r);
 
-      })
+          contract.methods
+            .getLawyersCount()
+            .call()
+            .then((r) => {
+              setLoading(false);
+              setResText(`✅ LawyerID is: ${parseInt(r) - 1}`);
+            });
+        });
     }
-  }
+  };
 
-  const uploadEvidence = (caseID, fileHash, fileType, setLoading, setResText) => {
-    setLoading(true)
-    contract.methods.uploadEvidence(
-      caseID, fileHash, fileType
-    ).send({
-      from: account
-    }).then(r => {
-      console.log(r)
-      setResText("✅ Evidence added to the Case")
-      setLoading(false)
-    })
-  }
+  const uploadEvidence = (
+    caseID,
+    fileHash,
+    fileType,
+    setLoading,
+    setResText
+  ) => {
+    setLoading(true);
+    contract.methods
+      .uploadEvidence(caseID, fileHash, fileType)
+      .send({
+        from: account,
+      })
+      .then((r) => {
+        console.log(r);
+        setResText("✅ Evidence added to the Case");
+        setLoading(false);
+      });
+  };
 
   const getCaseData = async (caseId, setLoading, setCaseInfo) => {
-    setLoading(true)
-    
+    setLoading(true);
+
     let caseData = await contract.methods.cases(caseId).call();
     let evidenceCount = await contract.methods.getEvidenceCount(caseId).call();
 
-    let evidenceData=[]
-    
-    for(var i=0; i<parseInt(evidenceCount); i++) {
+    let evidenceData = [];
+
+    for (var i = 0; i < parseInt(evidenceCount); i++) {
       let evi = await contract.methods.getEvidence(caseId, i).call();
       evidenceData.push(evi);
     }
 
     caseData.evidenceData = evidenceData;
 
-    setCaseInfo(caseData)
-    setLoading(false)
-    console.log(caseData)
-  }
+    setCaseInfo(caseData);
+    setLoading(false);
+    console.log(caseData);
+  };
 
   const closeCase = (caseid, setLoading2, setResText) => {
-    setLoading2(true)
-    contract.methods.closeCase(caseid).send({
-      from: account
-    }).then(r => {
-      console.log(r)
-      setResText("✅ Case Closed. Fees paid! Txn Hash: " + r.transactionHash)
-      setLoading2(false)
-    })
-  }
+    setLoading2(true);
+    contract.methods
+      .closeCase(caseid)
+      .send({
+        from: account,
+      })
+      .then((r) => {
+        console.log(r);
+        setResText("✅ Case Closed. Fees paid! Txn Hash: " + r.transactionHash);
+        setLoading2(false);
+      });
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -202,7 +232,7 @@ export default function Evidence() {
       </AppBar>
       <div>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <AddNewCase 
+          <AddNewCase
             theme={theme}
             tfStyle={tfStyle}
             submit={addCase}
@@ -210,18 +240,16 @@ export default function Evidence() {
           />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <img src="./dot-grid-triangle.svg" alt="dots"
+          <img
+            src="./dot-grid-triangle.svg"
+            alt="dots"
             style={{
               left: 0,
               top: "104px",
-              position: "fixed"
+              position: "fixed",
             }}
           />
-          <Upload
-            tfstyle={tfStyle}
-            submit={uploadEvidence}
-            classes={classes}
-          />
+          <Upload tfstyle={tfStyle} submit={uploadEvidence} classes={classes} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Register
@@ -232,11 +260,13 @@ export default function Evidence() {
           />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <img src="./dot-grid-triangle.svg" alt="dots"
+          <img
+            src="./dot-grid-triangle.svg"
+            alt="dots"
             style={{
               left: 0,
               top: "104px",
-              position: "fixed"
+              position: "fixed",
             }}
           />
           <CaseData
@@ -247,11 +277,13 @@ export default function Evidence() {
           />
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
-          <img src="./dot-grid-triangle.svg" alt="dots"
+          <img
+            src="./dot-grid-triangle.svg"
+            alt="dots"
             style={{
               left: 0,
               top: "104px",
-              position: "fixed"
+              position: "fixed",
             }}
           />
           <Entry />
