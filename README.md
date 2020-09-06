@@ -28,12 +28,12 @@ The project aims to achieve the following:
 3. Socket.io
 4. Solidity Smart Contracts
 5. IPFS ( Filecoin )
-6. Aave Protocol
+6. Portis
 7. Livepeer
 8. Web3
 9. Http Live Streaming
 10. Matic
-
+11. Aave
 
 ### Screenshots
 
