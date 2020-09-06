@@ -1,4 +1,4 @@
-# Decentralized-Online-Judging
+ <div align="center"><h1><strong>E-Nyay</strong></h1></div>
 
 ### Justice Delayed is Justice Denied
 
@@ -13,54 +13,59 @@ The project aims to achieve the following:
 
 ### Other Advantages
 
-- Witnesses Related To Criminal Cases Can Go To The Nearby District Or High Court Where E-court Rooms Are Already In Place Or To The It Cell Of The District Magistrate’s Office, And Indian Embassy In Case Of Foreign Nationals After Getting It Approved By The Judge.
-- Civil Cases can be handled from home.
+- Witnesses related to criminal cases can go to the nearby district or high court where e-court rooms are already in place or to the it cell of the district magistrate’s office, and indian embassy in case of foreign nationals after getting it approved by the judge.
+- Civil cases can be handled from home.
 - Witness can give their statement from their home/any safe place while the prisoner’s statement can be recorded from the prison.
-- A HUGE AMOUNT OF MONEY IS SPEND WHEN INMATES ARE TRANSPORTED EVERY YEAR FOR COURT HEARINGS. OUR PROJECT WILL SAVE AROUND MILLIONS.
-- PROTECTION OF A WITNESS IS VERY IMPORTANT BUT IT COMES WITH A HUGE COST, TO PROTECT JUST ONE WITNESS FOR A YEAR
+- A huge amount of money is spend when inmates are transported every year for court hearings. Our project will save around millions.
+- Protection of a witness is very important but it comes with a huge cost, to protect just one witness for a year
 - The police fir and the medical report will be availaible prior to the judges.
-- IT WILL PREVENT POLITICISATION OF ANY SORT OF SUCH HENIOUS CRIMES.
+- It will prevent politicisation of any sort of such henious crimes.
+
 
 ## Stack
 
-- ReactJS
-- NodeJS
-- Socket.io
-- Solidity Smart Contracts
-- IPFS ( Filecoin )
-- Aave Protocol
-- Livepeer
-- Web3
-- Http Live Streaming
+1. ReactJS
+2. NodeJS
+3. Socket.io
+4. Solidity Smart Contracts
+5. IPFS ( Filecoin )
+6. Aave Protocol
+7. Livepeer
+8. Web3
+9. Http Live Streaming
+10. Matic
 
-- _OUR SYSTEM UTLIZES THE LIVEPEER PROTOCOL FOR VIDEO CONFERENCING._
-- _EVIDENCE IS STORED BY UTILIZING IPFS AND FILECOIN, HENCE SECURELY ENCYPTED AND SAFE FROM MANIPULATION._
-- _Court fees from suspect & victim put in contract & deposited to Aave. Whoever wins gets the interest accumulated. Court gets paid only when case ended._
-- _NuCypher → Encrypt sensitive info/evidences accessible to specific parties only (lawyers, judges)._
 
 ### Screenshots
 
 [Video Demo](https://www.youtube.com/watch?v=-Ux4cLCmiz8)
 
 - Add Case
+
   ![](githubImages/1.png)
 
 - Upload Evidence
-  ![](githubImages/2.png)
+
+![](githubImages/2.png)
 
 - Register Lawyer/Judge
-  ![](githubImages/3.png)
+
+![](githubImages/3.png)
 
 - View Case Data
-  ![](githubImages/4.png)
+
+![](githubImages/4.png)
 
 - Join Video Chat
-  ![](githubImages/5.png)
+
+![](githubImages/5.png)
 
 - Liverpeer Video Call Room
-  ![](githubImages/6.png)
 
-## Contributors
+![](githubImages/6.png)
+
+
+### Contributors
 
 - [Rachit Anand](https://github.com/rachit2501)
 - [Apoorv Lathey](https://github.com/CodinMaster)
