@@ -37,7 +37,7 @@ The project aims to achieve the following:
 
 ### Screenshots
 
-[Video Demo](https://www.youtube.com/watch?v=-Ux4cLCmiz8)
+[Video Demo](https://www.youtube.com/watch?v=YoklIdYkvNg)
 
 - Add Case
 
@@ -68,9 +68,3 @@ The project aims to achieve the following:
 
 - [Rachit Anand](https://github.com/rachit2501)
 - [Apoorv Lathey](https://github.com/CodinMaster)
-
-### Resources
-
-- https://docs.google.com/presentation/d/1ejFbV4ovXGKpW6K9xK2VeX1_qOwLck2BAYNdVPru4y8/edit#slide=id.g8b49f488f7_0_21
-- https://livepeer.com
-- [https://github.com/livepeer/livepeerjs/tree/master/packages/sdk#broadcaster](https://github.com/livepeer/livepeerjs/tree/master/packages/sdk#broadcaster)
