@@ -1,6 +1,5 @@
  <div align="center"><h1><strong>E-Nyay</strong></h1></div>
-
-### Justice Delayed is Justice Denied
+<div align="center"><h2><strong> Justice Delayed is Justice Denied </strong></h2></div>
 
 ## Our Solution
 
