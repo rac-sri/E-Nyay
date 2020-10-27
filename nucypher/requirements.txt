@@ -29,7 +29,7 @@ command-not-found==0.3
 constant-sorrow==0.1.0a9
 constantly==15.1.0
 crcmod==1.7
-cryptography==2.9.2
+cryptography==3.2
 cupshelpers==1.0
 cycler==0.10.0
 cytoolz==0.10.1
