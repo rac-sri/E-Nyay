@@ -120,7 +120,7 @@ nbconvert==5.6.1
 nbformat==5.0.4
 netaddr==0.7.19
 netifaces==0.10.4
-notebook==6.0.3
+notebook==6.1.5
 nucypher==2.1.0b12
 numpy==1.18.4
 oauthlib==3.1.0
