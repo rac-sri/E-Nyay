@@ -72,7 +72,7 @@ h5py==2.10.0
 hendrix==3.3.0
 hexbytes==0.2.1
 html5lib==1.0.1
-httplib2==0.14.0
+httplib2==0.19.0
 humanize==2.4.0
 hyperlink==19.0.0
 idna==2.9
