@@ -208,7 +208,7 @@ ubuntu-drivers-common==0.0.0
 ufw==0.36
 umbral==0.1.3a2
 unattended-upgrades==0.1
-urllib3==1.25.9
+urllib3==1.26.5
 usb-creator==0.3.7
 varint==1.0.2
 virtualenv==20.0.17
