@@ -126,7 +126,7 @@ numpy==1.18.4
 oauthlib==3.1.0
 opt-einsum==3.2.1
 pandocfilters==1.4.2
-paramiko==2.6.0
+paramiko==2.10.1
 parsimonious==0.8.1
 parso==0.5.2
 pathtools==0.1.2
