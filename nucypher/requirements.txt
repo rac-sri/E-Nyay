@@ -122,7 +122,7 @@ netaddr==0.7.19
 netifaces==0.10.4
 notebook==6.0.3
 nucypher==2.1.0b12
-numpy==1.18.4
+numpy==1.22.0
 oauthlib==3.1.0
 opt-einsum==3.2.1
 pandocfilters==1.4.2
