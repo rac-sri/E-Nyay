@@ -199,7 +199,7 @@ toolz==0.10.0
 tornado==5.1.1
 traitlets==4.3.3
 trie==2.0.0a1
-Twisted==20.3.0
+Twisted==22.10.0
 txaio==20.4.1
 typing-extensions==3.7.4.2
 tzlocal==2.1
