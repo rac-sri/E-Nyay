@@ -19,7 +19,7 @@
     "react-drop-zone": "^4.1.1",
     "react-dropdown": "^1.7.0",
     "react-hls": "0.0.8",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "socket.io-client": "^2.3.0",
     "web3": "^1.2.11"
   },
